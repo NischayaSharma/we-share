@@ -6,6 +6,7 @@ import { ngolist } from '../../utils/ngo-list';
 const Register = () => {
     const [userType, setUserType] = useState('');
     const [ngoName, setNgoName] = useState('');
+    const [userTypeError, setUserTypeError] = useState(false);
     const [restaurantData, setRestaurantData] = useState({
         name: '',
         address: '',
@@ -17,6 +18,11 @@ const Register = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!userType) {
+            setUserTypeError(true);
+            return;
+        }
+        setUserTypeError(false);
         console.log('User type:', userType);
         if (userType === 'NGO') {
             console.log('NGO name:', ngoName);
@@ -33,15 +39,10 @@ const Register = () => {
         });
     };
 
-    const isValidGSTNumber = (gst: string) => {
-        const gstRegex = /^(\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d{1}[A-Z]{1}\d{1})$/;
-        return gstRegex.test(gst);
-    };
-
     return (
-        <div className={styles.container}>
+        <div className={styles.registerBox}>
             <div className={styles.formContainer}>
-                <h1>Register</h1>
+                <h1 className={styles.title}>Register</h1>
                 <form onSubmit={handleSubmit} className={styles.form}>
                     <div>
                         <label htmlFor="email" className={styles.label}>
@@ -59,18 +60,23 @@ const Register = () => {
                         <button
                             type="button"
                             className={`${styles.tab} ${userType === 'NGO' ? styles.selected : ''}`}
-                            onClick={() => setUserType('NGO')}
+                            onClick={() => {setUserType('NGO');setUserTypeError(false)}}
                         >
                             NGO
                         </button>
                         <button
                             type="button"
                             className={`${styles.tab} ${userType === 'Restaurant' ? styles.selected : ''}`}
-                            onClick={() => setUserType('Restaurant')}
+                            onClick={() => {setUserType('Restaurant');setUserTypeError(false)}}
                         >
                             Restaurant
                         </button>
                     </div>
+                    {userTypeError && (
+                        <p className={styles.error}>
+                            Please select either NGO or Restaurant.
+                        </p>
+                    )}
 
                     {userType === 'NGO' && (
                         <div>
@@ -185,7 +191,7 @@ const Register = () => {
                             </div>
                         </>
                     )}
-                    <button type="submit" className={styles.button}>
+                    <button type="submit" className={styles.submitButton}>
                         Register
                     </button>
                 </form>
