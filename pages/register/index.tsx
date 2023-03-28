@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './index.module.css';
+import { NGODetails } from '../../interfaces';
+import { ngolist } from '../../utils/ngo-list';
 
 const Register = () => {
     const [userType, setUserType] = useState('');
@@ -23,13 +25,6 @@ const Register = () => {
         }
         // Handle form submission logic here, e.g., call API to register the user
     };
-
-    const predefinedNgos = [
-        'NGO 1',
-        'NGO 2',
-        'NGO 3',
-        'NGO 4',
-    ];
 
     const handleRestaurantDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRestaurantData({
@@ -60,30 +55,23 @@ const Register = () => {
                         </label>
                         <input type="password" id="password" name="password" className={styles.input} required />
                     </div>
-                    <div className={styles.radioContainer}>
-                        <div className={styles.radioLabel}>
-                            <label htmlFor="ngo">NGO</label>
-                        </div>
-                        <input
-                            type="radio"
-                            id="ngo"
-                            name="userType"
-                            value="NGO"
-                            checked={userType === 'NGO'}
-                            onChange={(e) => setUserType(e.target.value)}
-                        />
-                        <div className={styles.radioLabel}>
-                            <label htmlFor="restaurant">Restaurant</label>
-                        </div>
-                        <input
-                            type="radio"
-                            id="restaurant"
-                            name="userType"
-                            value="Restaurant"
-                            checked={userType === 'Restaurant'}
-                            onChange={(e) => setUserType(e.target.value)}
-                        />
+                    <div className={styles.tabContainer}>
+                        <button
+                            type="button"
+                            className={`${styles.tab} ${userType === 'NGO' ? styles.selected : ''}`}
+                            onClick={() => setUserType('NGO')}
+                        >
+                            NGO
+                        </button>
+                        <button
+                            type="button"
+                            className={`${styles.tab} ${userType === 'Restaurant' ? styles.selected : ''}`}
+                            onClick={() => setUserType('Restaurant')}
+                        >
+                            Restaurant
+                        </button>
                     </div>
+
                     {userType === 'NGO' && (
                         <div>
                             <label htmlFor="ngoName" className={styles.label}>
@@ -98,12 +86,13 @@ const Register = () => {
                                 required
                             >
                                 <option value="">Select an NGO</option>
-                                {predefinedNgos.map((name) => (
-                                    <option key={name} value={name}>
-                                        {name}
+                                {ngolist.map((ngo) => (
+                                    <option key={ngo.SNo} value={ngo["NGO Name"]}>
+                                        {ngo["NGO Name"]}
                                     </option>
                                 ))}
                             </select>
+
                         </div>
                     )}
                     {userType === 'Restaurant' && (

@@ -24,6 +24,16 @@
 .label {
     font-weight: bold;
     margin-bottom: 0.5rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input,
+.select {
+    width: 100%;
+    max-width: 100%;
+    padding: 5px;
+    margin-bottom: 15px;
 }
 
 .input {
@@ -56,6 +66,8 @@
     border: 1px solid #ccc;
     margin-bottom: 1rem;
     background: #ffffff;
+    width: 100%;
+    max-width: 100%;
 }
 
 .radioContainer {
@@ -67,4 +79,28 @@
 
 .radioLabel {
     margin-right: 1rem;
+}
+
+.tabContainer {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-weight: bold;
+    color: #555;
+    outline: none;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.selected {
+    color: #333;
+    border-bottom-color: #333;
 }
