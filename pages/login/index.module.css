@@ -9,7 +9,7 @@
     --error-color: #e74c3c;
 }
 
-.registerBox {
+.loginBox {
     max-width: 500px;
     margin: 50px auto;
     padding: 30px;
@@ -84,6 +84,16 @@
 
 .submitButton:hover {
     background-color: #4a9ad8;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkbox {
+    margin-right: 5px;
 }
 
 .loginLinkContainer {
