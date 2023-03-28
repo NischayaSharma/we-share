@@ -64,6 +64,11 @@ export default function Login() {
                     <span className={styles.loginLink}>Register</span>
                 </Link>
             </div>
+            <div className={styles.homeLinkContainer}>
+                <Link href="/">
+                    <span className={styles.homeLink}>Home</span>
+                </Link>
+            </div>
         </div>
     );
 }

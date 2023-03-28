@@ -201,6 +201,11 @@ const Register = () => {
                                 <span className={styles.loginLink}>Login</span>
                             </Link>
                         </div>
+                        <div className={styles.homeLinkContainer}>
+                            <Link href="/">
+                                <span className={styles.homeLink}>Home</span>
+                            </Link>
+                        </div>
                     </form>
                 </div>
             </div>
