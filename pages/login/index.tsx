@@ -1,15 +1,23 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './index.module.css';
+import { logIn } from '../../utils/firebase';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        const { user } = await logIn(email, password);
+        console.log('User Logged In:', user);
+
+        router.push('/');
+
         // TODO: Perform login action
     };
 

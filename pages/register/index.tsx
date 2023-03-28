@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import styles from './index.module.css';
 import Link from 'next/link';
 import { ngolist } from '../../utils/ngo-list';
+import { signUp } from '../../utils/firebase';
+import { useRouter } from 'next/router';
+import { NGODetails } from '../../interfaces';
 
 const Register = () => {
+    const router = useRouter();
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
     const [userType, setUserType] = useState('');
-    const [ngoName, setNgoName] = useState('');
+    const [ngoSNo, setNgoSNo] = useState('');
+    const [ngo, setNgo] = useState<NGODetails>();
     const [userTypeError, setUserTypeError] = useState(false);
     const [restaurantData, setRestaurantData] = useState({
         name: '',
@@ -16,7 +23,7 @@ const Register = () => {
         gstNumber: '',
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!userType) {
             setUserTypeError(true);
@@ -24,12 +31,31 @@ const Register = () => {
         }
         setUserTypeError(false);
         console.log('User type:', userType);
-        if (userType === 'NGO') {
-            console.log('NGO name:', ngoName);
-        } else if (userType === 'Restaurant') {
-            console.log('Restaurant data:', restaurantData);
+
+        try {
+            // Register the user on Firebase
+            let userData;
+            if (userType === 'NGO') {
+                userData = {
+                    email: email,
+                    userType,
+                    userData: ngo,
+                };
+            } else {
+                userData = {
+                    email: email,
+                    userType,
+                    userData: restaurantData,
+                };
+            }
+
+            const user = await signUp(email, pass, userData);
+            console.log('User registered:', user);
+
+            router.push('/');
+        } catch (error) {
+            console.error('Error registering user:', error);
         }
-        // Handle form submission logic here, e.g., call API to register the user
     };
 
     const handleRestaurantDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,13 +75,13 @@ const Register = () => {
                             <label htmlFor="email" className={styles.label}>
                                 Email:
                             </label>
-                            <input type="email" id="email" name="email" className={styles.input} required />
+                            <input type="email" id="email" name="email" className={styles.input} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
                         <div>
                             <label htmlFor="password" className={styles.label}>
                                 Password:
                             </label>
-                            <input type="password" id="password" name="password" className={styles.input} required />
+                            <input type="password" id="password" name="password" className={styles.input} onChange={(e) => setPass(e.target.value)} required />
                         </div>
                         <div className={styles.tabContainer}>
                             <button
@@ -81,20 +107,20 @@ const Register = () => {
 
                         {userType === 'NGO' && (
                             <div>
-                                <label htmlFor="ngoName" className={styles.label}>
+                                <label htmlFor="ngoSNo" className={styles.label}>
                                     NGO Name:
                                 </label>
                                 <select
-                                    id="ngoName"
-                                    name="ngoName"
+                                    id="ngoSNo"
+                                    name="ngoSNo"
                                     className={styles.select}
-                                    value={ngoName}
-                                    onChange={(e) => setNgoName(e.target.value)}
+                                    value={ngoSNo}
+                                    onChange={(e) => { setNgo(ngolist.find(o => o.SNo === parseInt(e.target.value)));setNgoSNo(e.target.value)}}
                                     required
                                 >
                                     <option value="">Select an NGO</option>
                                     {ngolist.map((ngo) => (
-                                        <option key={ngo.SNo} value={ngo["NGO Name"]}>
+                                        <option key={ngo.SNo} value={ngo.SNo}>
                                             {ngo["NGO Name"]}
                                         </option>
                                     ))}
