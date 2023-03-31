@@ -1,9 +1,9 @@
 /* Define CSS variables */
 .lightMode {
-    --primary-color: #3498db;
-    --secondary-color: #f1c40f;
-    --background-color: #ffffff;
-    --text-color: #34495e;
+    --primary-color: #3C6255;
+    --secondary-color: #61876E;
+    --background-color: #A6BB8D;
+    --text-color: #EAE7B1;
 }
 
 /* Component styles */
@@ -42,5 +42,5 @@
 }
 
 .button:hover {
-    background-color: #4a9ad8;
+    background-color: #61876E;
 }

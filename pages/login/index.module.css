@@ -1,8 +1,8 @@
 .lightMode {
     /* Light mode colors */
-    --primary-color: #3498db;
-    --secondary-color: #f1c40f;
-    --background-color: #ffffff;
+    --primary-color: #61876E;
+    --secondary-color: #A6BB8D;
+    --background-color: #A6BB8D;
     --text-color: #34495e;
     --input-background-color: #ecf0f1;
     --border-color: #bdc3c7;
@@ -33,6 +33,7 @@
 
 .input,
 .select {
+    /* Other styles */
     width: 100%;
     max-width: 100%;
     padding: 5px;
@@ -40,6 +41,15 @@
     border: 1px solid var(--border-color);
     border-radius: 3px;
     background-color: var(--input-background-color);
+    /* Add transition for focus effect */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus,
+.select:focus {
+    /* Change border color and add box-shadow when the input is focused */
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .tabContainer {
@@ -83,17 +93,8 @@
 }
 
 .submitButton:hover {
-    background-color: #4a9ad8;
-}
-
-.checkboxLabel {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.checkbox {
-    margin-right: 5px;
+    background-color: var(--tertiary-color);
+    transition: background-color 0.3s;
 }
 
 .loginLinkContainer {
@@ -127,4 +128,17 @@
 
 .homeLink:hover {
     color: #4a9ad8;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
 }

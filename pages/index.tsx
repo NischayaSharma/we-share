@@ -13,6 +13,18 @@ export default function Home() {
                     <button className={styles.button}>Register</button>
                 </Link>
             </div>
+            <style jsx global>
+                {`
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        font-family: Arial, sans-serif;
+                        background-color: #EAE7B1;
+                        color: #34495e;
+                        line-height: 1.5;
+                    }
+                `}
+            </style>
         </div>
     );
 }

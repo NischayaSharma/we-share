@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ngolist } from '../../utils/ngo-list';
 import { signUp } from '../../utils/firebase';
 import { useRouter } from 'next/router';
-import { NGODetails } from '../../interfaces';
+import { NGOUserData } from '../../interfaces';
 
 const Register = () => {
     const router = useRouter();
@@ -12,7 +12,7 @@ const Register = () => {
     const [pass, setPass] = useState('');
     const [userType, setUserType] = useState('');
     const [ngoSNo, setNgoSNo] = useState('');
-    const [ngo, setNgo] = useState<NGODetails>();
+    const [ngo, setNgo] = useState<NGOUserData>();
     const [userTypeError, setUserTypeError] = useState(false);
     const [restaurantData, setRestaurantData] = useState({
         name: '',
@@ -235,6 +235,26 @@ const Register = () => {
                     </form>
                 </div>
             </div>
+            <style jsx global>
+                {`
+                    :root {
+                        /* Color palette */
+                        --primary-color: #61876E;
+                        --secondary-color: #A6BB8D;
+                        --tertiary-color: #EAE7B1;
+                        --background-color: #3C6255;
+                        --text-color: #FFFFFF;
+                        --input-background-color: #A6BB8D;
+                        --border-color: #EAE7B1;
+                        --error-color: #E74C3C;
+                    }
+                    body {
+                        background-color: var(--background-color);
+                        color: var(--text-color);
+                        font-family: Arial, sans-serif;
+                    }
+                `}
+            </style>
         </div>
     );
 };

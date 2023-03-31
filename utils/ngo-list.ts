@@ -1,6 +1,6 @@
-import { NGODetails } from '../interfaces'
+import { NGOUserData } from '../interfaces'
 
-export const ngolist: NGODetails[] = [
+export const ngolist: NGOUserData[] = [
     {
         "SNo": 1,
         "NGO Name": "AADHAR FOUNDATION",

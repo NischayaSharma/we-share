@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './index.module.css';
-import { logIn } from '../../utils/firebase';
+import { getUserDetails, logIn } from '../../utils/firebase';
 import { useRouter } from 'next/router';
+import Loader from '../../components/Loader';
 
 export default function Login() {
     const router = useRouter();
@@ -10,15 +11,24 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
+        console.log("Login Click")
         const { user } = await logIn(email, password);
         console.log('User Logged In:', user);
-
-        router.push('/');
-
-        // TODO: Perform login action
+        const userDetails = (await getUserDetails()).data();
+        console.log('User Details:', userDetails);
+        if (userDetails.userType === "NGO") {
+            router.push('/ngo');
+        } else if (userDetails.userType === "Restaurant") {
+            router.push('/restaurant');
+        // } else {
+        //     setError('Invalid User Type');
+        }
+        setIsLoading(false);
     };
 
     return (
@@ -77,6 +87,31 @@ export default function Login() {
                     <span className={styles.homeLink}>Home</span>
                 </Link>
             </div>
+            <style jsx global>
+                {`
+                    :root {
+                        /* Color palette */
+                        --primary-color: #61876E;
+                        --secondary-color: #A6BB8D;
+                        --tertiary-color: #EAE7B1;
+                        --background-color: #3C6255;
+                        --text-color: #FFFFFF;
+                        --input-background-color: #A6BB8D;
+                        --border-color: #EAE7B1;
+                        --error-color: #E74C3C;
+                    }
+                    body {
+                        background-color: var(--background-color);
+                        color: var(--text-color);
+                        font-family: Arial, sans-serif;
+                    }
+                `}
+            </style>
+            {isLoading && (
+                <div className={styles.overlay}>
+                    <Loader />
+                </div>
+            )}
         </div>
     );
 }

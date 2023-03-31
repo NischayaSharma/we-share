@@ -1,8 +1,8 @@
 .lightMode {
     /* Light mode colors */
-    --primary-color: #3498db;
-    --secondary-color: #f1c40f;
-    --background-color: #ffffff;
+    --primary-color: #61876E;
+    --secondary-color: #A6BB8D;
+    --background-color: #A6BB8D;
     --text-color: #34495e;
     --input-background-color: #ecf0f1;
     --border-color: #bdc3c7;
@@ -83,7 +83,7 @@
 }
 
 .submitButton:hover {
-    background-color: #4a9ad8;
+    background-color: var(--tertiary-color);
 }
 
 .loginLinkContainer {
