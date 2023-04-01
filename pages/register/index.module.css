@@ -61,8 +61,8 @@
 }
 
 .tab.selected {
-    color: var(--secondary-color);
-    border-bottom-color: var(--secondary-color);
+    color: #21241f;
+    border-bottom-color: #21241f;
 }
 
 .error {

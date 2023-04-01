@@ -66,7 +66,7 @@ export const createDonation = async (restaurantId: string, foodName: string, qua
         timestamp: new Date()
     });
 
-    return donationRef.id;
+    return { donation: donationRef.id, imageUrl };
 };
 
 export const createDonationRequest = async (ngoId: string, donationIds: string[]) => {

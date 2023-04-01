@@ -240,7 +240,7 @@ const Register = () => {
                     :root {
                         /* Color palette */
                         --primary-color: #61876E;
-                        --secondary-color: #A6BB8D;
+                        --secondary-color: #21241f;
                         --tertiary-color: #EAE7B1;
                         --background-color: #3C6255;
                         --text-color: #FFFFFF;

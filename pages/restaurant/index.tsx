@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './index.module.css';
-import { createDonation, auth, getRequestedDonations, acceptDonationRequest, declineDonationRequest } from '../../utils/firebase';
+import { createDonation, auth, getRequestedDonations, acceptDonationRequest, declineDonationRequest, getUserDetails } from '../../utils/firebase';
+import { getFoodFreshness } from '../../utils/backend-service';
 import Loader from '../../components/Loader';
 
 // Modify the type definition of DonationRequest
@@ -45,7 +46,11 @@ const RestaurantDashboard: React.FC = () => {
         // Replace the restaurantId with the actual restaurant ID
         setLoading(true)
         const restaurantId = auth.currentUser.uid;
-        await createDonation(restaurantId, foodName, quantity, imageFile);
+        const userDetails = await getUserDetails();
+        const pincode = userDetails.data().userData.pinCode;
+        const { imageUrl } = await createDonation(restaurantId, foodName, quantity, imageFile);
+        const foodFreshness = await getFoodFreshness(new Date(), imageUrl, pincode);
+        console.log("Food Freshness: ", foodFreshness)
         setShowModal(false);
         setFoodName('');
         setQuantity(0);
@@ -121,7 +126,7 @@ const RestaurantDashboard: React.FC = () => {
                         />
                         <input
                             type="number"
-                            placeholder="Quantity"
+                            placeholder="Quantity in kg"
                             value={quantity}
                             onChange={(e) => setQuantity(Number(e.target.value))}
                         />

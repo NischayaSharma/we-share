@@ -67,3 +67,24 @@ export interface Donation {
   status: string;
   timestamp: Date;
 }
+
+export interface PostalInfo {
+  Message: string;
+  Status: string;
+  PostOffice: PostOffice[];
+}
+
+export interface PostOffice {
+  Name: string;
+  Description: string | null;
+  BranchType: string;
+  DeliveryStatus: string;
+  Circle: string;
+  District: string;
+  Division: string;
+  Region: string;
+  Block: string;
+  State: string;
+  Country: string;
+  Pincode: string;
+}
